@@ -251,7 +251,7 @@ function getProcessorFactor(processor: string): number {
   // Premium for newer/higher-end processors
   if (["i9", "ryzen9", "m3"].includes(processor)) return 1.2
   if (["i7", "ryzen7", "m2"].includes(processor)) return 1.15
-  if (["i5", "ryzen5", "m1"].includes(processor)) return 1.1
+  if (["i5", "ryzen5", "m1"].includes(processor)) return 1.1 // Make sure i5 is explicitly included
   if (["i3", "ryzen3"].includes(processor)) return 1.0
   return 0.95 // Other/older processors
 }
