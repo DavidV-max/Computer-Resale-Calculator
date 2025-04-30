@@ -4,7 +4,24 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Tabs, TabsContent } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { BarChart, Users, PieChart, Package, Laptop, Server, Monitor, Printer, Network } from "lucide-react"
+import {
+  BarChart,
+  Users,
+  PieChart,
+  Package,
+  Laptop,
+  Server,
+  Monitor,
+  Printer,
+  Network,
+  TrendingUp,
+  Clock,
+  Calendar,
+  Globe,
+  AlertTriangle,
+  CheckCircle,
+  Activity,
+} from "lucide-react"
 import { logoutAdmin } from "@/lib/auth"
 import AdminHeader from "./header"
 import AdminSidebar from "./sidebar"
@@ -12,6 +29,8 @@ import DeviceManagement from "./device-management"
 import UserManagement from "./user-management"
 import SystemSettings from "./system-settings"
 import AdminAnalytics from "./analytics"
+import SystemLogs from "./system-logs"
+import ProfileSettings from "./profile-settings"
 
 export default function AdminDashboard() {
   const router = useRouter()
@@ -41,6 +60,9 @@ export default function AdminDashboard() {
                   <CardContent>
                     <div className="text-2xl font-bold">1,284</div>
                     <p className="text-xs text-muted-foreground">+12% from last month</p>
+                    <div className="mt-2 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-indigo-600 w-[65%]" />
+                    </div>
                   </CardContent>
                 </Card>
                 <Card>
@@ -51,6 +73,9 @@ export default function AdminDashboard() {
                   <CardContent>
                     <div className="text-2xl font-bold">342</div>
                     <p className="text-xs text-muted-foreground">+7% from last month</p>
+                    <div className="mt-2 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-indigo-600 w-[42%]" />
+                    </div>
                   </CardContent>
                 </Card>
                 <Card>
@@ -61,6 +86,9 @@ export default function AdminDashboard() {
                   <CardContent>
                     <div className="text-2xl font-bold">2,845</div>
                     <p className="text-xs text-muted-foreground">+18% from last month</p>
+                    <div className="mt-2 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-indigo-600 w-[78%]" />
+                    </div>
                   </CardContent>
                 </Card>
                 <Card>
@@ -71,12 +99,15 @@ export default function AdminDashboard() {
                   <CardContent>
                     <div className="text-2xl font-bold">$428</div>
                     <p className="text-xs text-muted-foreground">-3% from last month</p>
+                    <div className="mt-2 h-1 w-full bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-red-500 w-[35%]" />
+                    </div>
                   </CardContent>
                 </Card>
               </div>
 
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4">
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <Card className="col-span-2">
                   <CardHeader>
                     <CardTitle>Valuations Overview</CardTitle>
                     <CardDescription>Number of device valuations per day for the last 30 days</CardDescription>
@@ -87,7 +118,95 @@ export default function AdminDashboard() {
                     </div>
                   </CardContent>
                 </Card>
-                <Card className="col-span-3">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Recent Activity</CardTitle>
+                    <CardDescription>Latest system activities</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="bg-indigo-100 p-1.5 rounded-full">
+                          <Users className="h-3.5 w-3.5 text-indigo-600" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium">New user registered</p>
+                          <p className="text-xs text-slate-500">10 minutes ago</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="bg-green-100 p-1.5 rounded-full">
+                          <CheckCircle className="h-3.5 w-3.5 text-green-600" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium">Database backup completed</p>
+                          <p className="text-xs text-slate-500">25 minutes ago</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="bg-amber-100 p-1.5 rounded-full">
+                          <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium">System update available</p>
+                          <p className="text-xs text-slate-500">1 hour ago</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="bg-blue-100 p-1.5 rounded-full">
+                          <Activity className="h-3.5 w-3.5 text-blue-600" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium">High traffic detected</p>
+                          <p className="text-xs text-slate-500">2 hours ago</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">Top Device Brand</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">Dell</div>
+                    <p className="text-xs text-muted-foreground">28% of all valuations</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">Most Valued Device</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">MacBook Pro</div>
+                    <p className="text-xs text-muted-foreground">Avg. value: $1,245</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">User Retention</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">68%</div>
+                    <p className="text-xs text-muted-foreground">+5% from last month</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">System Health</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-green-600">Excellent</div>
+                    <p className="text-xs text-muted-foreground">All systems operational</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+                <Card className="col-span-4">
                   <CardHeader>
                     <CardTitle>Device Distribution</CardTitle>
                     <CardDescription>Breakdown of device types valued</CardDescription>
@@ -157,6 +276,55 @@ export default function AdminDashboard() {
                     </div>
                   </CardContent>
                 </Card>
+                <Card className="col-span-3">
+                  <CardHeader>
+                    <CardTitle>System Metrics</CardTitle>
+                    <CardDescription>Performance and usage statistics</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <Clock className="h-4 w-4 mr-2 text-indigo-600" />
+                          <span className="text-sm">Response Time</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-sm font-medium">245ms</span>
+                          <TrendingUp className="h-4 w-4 ml-1 text-green-500" />
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <Users className="h-4 w-4 mr-2 text-indigo-600" />
+                          <span className="text-sm">Active Sessions</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-sm font-medium">48</span>
+                          <TrendingUp className="h-4 w-4 ml-1 text-green-500" />
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-2 text-indigo-600" />
+                          <span className="text-sm">Daily Valuations</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-sm font-medium">124</span>
+                          <TrendingUp className="h-4 w-4 ml-1 text-green-500" />
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                          <Globe className="h-4 w-4 mr-2 text-indigo-600" />
+                          <span className="text-sm">Traffic Sources</span>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-sm font-medium">12 countries</span>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </TabsContent>
 
@@ -174,6 +342,14 @@ export default function AdminDashboard() {
 
             <TabsContent value="settings">
               <SystemSettings />
+            </TabsContent>
+
+            <TabsContent value="logs">
+              <SystemLogs />
+            </TabsContent>
+
+            <TabsContent value="profile">
+              <ProfileSettings />
             </TabsContent>
           </Tabs>
         </main>

@@ -1,5 +1,17 @@
 "use client"
-import { BarChart, Users, Database, Settings, LogOut, Home, ChevronRight } from "lucide-react"
+import {
+  BarChart,
+  Users,
+  Database,
+  Settings,
+  LogOut,
+  Home,
+  ChevronRight,
+  FileText,
+  Bell,
+  User,
+  HelpCircle,
+} from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface AdminSidebarProps {
@@ -10,11 +22,13 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ activeTab, setActiveTab, onLogout }: AdminSidebarProps) {
   const menuItems = [
-    { id: "overview", label: "Overview", icon: Home },
+    { id: "overview", label: "Dashboard", icon: Home },
     { id: "analytics", label: "Analytics", icon: BarChart },
     { id: "devices", label: "Device Management", icon: Database },
     { id: "users", label: "User Management", icon: Users },
+    { id: "logs", label: "System Logs", icon: FileText },
     { id: "settings", label: "System Settings", icon: Settings },
+    { id: "profile", label: "Profile Settings", icon: User },
   ]
 
   return (
@@ -46,6 +60,25 @@ export default function AdminSidebar({ activeTab, setActiveTab, onLogout }: Admi
             </li>
           ))}
         </ul>
+
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Support</h3>
+          <ul className="mt-2 space-y-1">
+            <li>
+              <button className="flex items-center w-full px-3 py-2 text-sm rounded-md text-slate-600 hover:bg-gray-100">
+                <HelpCircle className="h-4 w-4 mr-3" />
+                Help Center
+              </button>
+            </li>
+            <li>
+              <button className="flex items-center w-full px-3 py-2 text-sm rounded-md text-slate-600 hover:bg-gray-100">
+                <Bell className="h-4 w-4 mr-3" />
+                Notifications
+                <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">3</span>
+              </button>
+            </li>
+          </ul>
+        </div>
       </nav>
 
       <div className="p-4 border-t">
