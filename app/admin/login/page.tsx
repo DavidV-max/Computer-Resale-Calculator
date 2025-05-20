@@ -29,10 +29,10 @@ export default function AdminLogin() {
     // Simple demo authentication
     if (username === "admin" && password === "admin123") {
       // Set a cookie to simulate authentication
-      document.cookie = "admin_session=authenticated; path=/; max-age=3600"
+      document.cookie = "admin_session=authenticated; path=/; max-age=86400"
 
       // Redirect to dashboard
-      window.location.href = "/admin/dashboard"
+      router.push("/admin/dashboard")
     } else {
       setError("Invalid username or password")
       setIsLoading(false)
@@ -40,7 +40,7 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-gradient-to-br from-blue-50 via-sky-50 to-slate-50 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-sky-50 to-slate-50 p-4">
       <Card className="w-full max-w-md border-0 shadow-lg">
         <CardHeader className="bg-gradient-to-r from-blue-600 to-sky-600 text-white">
           <CardTitle className="text-xl">Admin Portal</CardTitle>

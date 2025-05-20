@@ -1,29 +1,8 @@
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
-
-export function middleware(request: NextRequest) {
-  // Get the pathname of the request
-  const path = request.nextUrl.pathname
-
-  // Check if the path is for the admin area (excluding login)
-  const isAdminPath = path.startsWith("/admin") && path !== "/admin/login"
-
-  // Check if the user is authenticated
-  const isAuthenticated = request.cookies.has("admin_session")
-
-  // If trying to access admin pages without authentication, redirect to login
-  if (isAdminPath && !isAuthenticated) {
-    return NextResponse.redirect(new URL("/admin/login", request.url))
-  }
-
-  // If already authenticated and trying to access login, redirect to dashboard
-  if (path === "/admin/login" && isAuthenticated) {
-    return NextResponse.redirect(new URL("/admin/dashboard", request.url))
-  }
-
-  return NextResponse.next()
+// Temporarily disable middleware to ensure it's not causing issues
+export function middleware() {
+  // Do nothing for now
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [],
 }

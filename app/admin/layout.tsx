@@ -1,18 +1,23 @@
 import type React from "react"
-import { checkAdminSession } from "@/lib/auth"
-import { redirect } from "next/navigation"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "../globals.css"
 
-export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  // Server-side authentication check
-  const isAuthenticated = await checkAdminSession()
+const inter = Inter({ subsets: ["latin"] })
 
-  // Get the current path segment
-  const segment = children.props?.childProp?.segment
+export const metadata: Metadata = {
+  title: "Admin Panel | Computer Resale Calculator",
+  description: "Admin panel for managing the Computer Resale Calculator application",
+}
 
-  // If not authenticated and not on login page, redirect to login
-  if (!isAuthenticated && segment !== "login") {
-    redirect("/admin/login")
-  }
-
-  return <>{children}</>
+export default function AdminLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
+  )
 }
