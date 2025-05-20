@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { Tabs, TabsContent } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -22,7 +21,6 @@ import {
   CheckCircle,
   Activity,
 } from "lucide-react"
-import { logoutAdmin } from "@/lib/auth"
 import AdminHeader from "./header"
 import AdminSidebar from "./sidebar"
 import DeviceManagement from "./device-management"
@@ -33,20 +31,14 @@ import SystemLogs from "./system-logs"
 import ProfileSettings from "./profile-settings"
 
 export default function AdminDashboard() {
-  const router = useRouter()
   const [activeTab, setActiveTab] = useState("overview")
-
-  const handleLogout = async () => {
-    await logoutAdmin()
-    router.push("/admin/login")
-  }
 
   return (
     <div className="flex h-[calc(100vh-4rem)] bg-gray-100">
-      <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout} />
+      <AdminSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       <div className="flex flex-col flex-1 overflow-hidden">
-        <AdminHeader onLogout={handleLogout} />
+        <AdminHeader />
 
         <main className="flex-1 overflow-y-auto p-4">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">

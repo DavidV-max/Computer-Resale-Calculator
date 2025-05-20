@@ -1,267 +1,306 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
-
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Switch } from "@/components/ui/switch"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Save, User, Lock, Bell, Shield, Upload } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { User, Mail, Lock, Bell, Shield, Key, Upload } from "lucide-react"
 
 export default function ProfileSettings() {
-  const [activeTab, setActiveTab] = useState("general")
+  const [activeTab, setActiveTab] = useState("account")
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Profile Settings</CardTitle>
-        <CardDescription>Manage your account settings and preferences</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="general" className="flex items-center gap-2">
-              <User className="h-4 w-4" /> General
-            </TabsTrigger>
-            <TabsTrigger value="security" className="flex items-center gap-2">
-              <Lock className="h-4 w-4" /> Security
-            </TabsTrigger>
-            <TabsTrigger value="notifications" className="flex items-center gap-2">
-              <Bell className="h-4 w-4" /> Notifications
-            </TabsTrigger>
-            <TabsTrigger value="sessions" className="flex items-center gap-2">
-              <Shield className="h-4 w-4" /> Sessions
-            </TabsTrigger>
-          </TabsList>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-3xl font-bold tracking-tight">Profile Settings</h2>
+      </div>
 
-          <TabsContent value="general" className="space-y-4">
-            <div className="flex items-center gap-6">
-              <Avatar className="h-24 w-24">
-                <AvatarImage src="/placeholder.svg?height=96&width=96" alt="Admin" />
-                <AvatarFallback className="text-xl">AD</AvatarFallback>
-              </Avatar>
-              <div>
-                <h3 className="text-lg font-medium">Profile Picture</h3>
-                <p className="text-sm text-slate-500 mb-2">Upload a new profile picture</p>
-                <div className="flex items-center gap-2">
-                  <Button variant="outline" size="sm" className="gap-2">
-                    <Upload className="h-4 w-4" /> Upload
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    Remove
-                  </Button>
-                </div>
-              </div>
+      <div className="flex flex-col md:flex-row gap-6">
+        <Card className="md:w-1/3">
+          <CardHeader>
+            <CardTitle>Admin Profile</CardTitle>
+            <CardDescription>Manage your account details</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center space-y-4">
+            <Avatar className="h-24 w-24">
+              <AvatarImage src="/placeholder.svg?height=96&width=96" alt="Admin" />
+              <AvatarFallback className="bg-indigo-100 text-indigo-700 text-xl">AD</AvatarFallback>
+            </Avatar>
+            <div className="text-center">
+              <h3 className="text-lg font-medium">Admin User</h3>
+              <p className="text-sm text-slate-500">Administrator</p>
+              <p className="text-sm text-slate-500">admin@example.com</p>
             </div>
+            <Button variant="outline" size="sm" className="mt-2">
+              <Upload className="mr-2 h-4 w-4" />
+              Change Avatar
+            </Button>
+          </CardContent>
+          <CardFooter className="flex justify-between border-t px-6 py-4">
+            <p className="text-xs text-slate-500">Member since May 2023</p>
+            <p className="text-xs text-green-600">Online</p>
+          </CardFooter>
+        </Card>
 
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="firstName">First Name</Label>
-                  <Input id="firstName" defaultValue="Admin" />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input id="lastName" defaultValue="User" />
-                </div>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" defaultValue="admin@example.com" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="jobTitle">Job Title</Label>
-                <Input id="jobTitle" defaultValue="System Administrator" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="timezone">Timezone</Label>
-                <Select defaultValue="utc">
-                  <SelectTrigger id="timezone">
-                    <SelectValue placeholder="Select timezone" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="utc">UTC (Coordinated Universal Time)</SelectItem>
-                    <SelectItem value="est">EST (Eastern Standard Time)</SelectItem>
-                    <SelectItem value="cst">CST (Central Standard Time)</SelectItem>
-                    <SelectItem value="mst">MST (Mountain Standard Time)</SelectItem>
-                    <SelectItem value="pst">PST (Pacific Standard Time)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </TabsContent>
+        <div className="md:w-2/3 space-y-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="account">
+                <User className="h-4 w-4 mr-2" />
+                Account
+              </TabsTrigger>
+              <TabsTrigger value="security">
+                <Shield className="h-4 w-4 mr-2" />
+                Security
+              </TabsTrigger>
+              <TabsTrigger value="notifications">
+                <Bell className="h-4 w-4 mr-2" />
+                Notifications
+              </TabsTrigger>
+              <TabsTrigger value="api">
+                <Key className="h-4 w-4 mr-2" />
+                API Keys
+              </TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="security" className="space-y-4">
-            <div className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="currentPassword">Current Password</Label>
-                <Input id="currentPassword" type="password" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="newPassword">New Password</Label>
-                <Input id="newPassword" type="password" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="confirmPassword">Confirm New Password</Label>
-                <Input id="confirmPassword" type="password" />
-              </div>
-            </div>
-
-            <div className="space-y-4 mt-6">
-              <h3 className="text-lg font-medium">Two-Factor Authentication</h3>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Authenticator App</p>
-                  <p className="text-sm text-slate-500">Use an authenticator app to generate one-time codes</p>
-                </div>
-                <Switch />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">SMS Authentication</p>
-                  <p className="text-sm text-slate-500">Receive a code via SMS to verify your identity</p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Email Authentication</p>
-                  <p className="text-sm text-slate-500">Receive a code via email to verify your identity</p>
-                </div>
-                <Switch />
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="notifications" className="space-y-4">
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Email Notifications</h3>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">System Updates</p>
-                  <p className="text-sm text-slate-500">Receive emails about system updates and maintenance</p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Security Alerts</p>
-                  <p className="text-sm text-slate-500">Receive emails about security incidents and alerts</p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">User Activity</p>
-                  <p className="text-sm text-slate-500">Receive emails about new user registrations and activities</p>
-                </div>
-                <Switch />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">Newsletter</p>
-                  <p className="text-sm text-slate-500">Receive monthly newsletter and product updates</p>
-                </div>
-                <Switch />
-              </div>
-            </div>
-
-            <div className="space-y-4 mt-6">
-              <h3 className="text-lg font-medium">In-App Notifications</h3>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">System Alerts</p>
-                  <p className="text-sm text-slate-500">Receive notifications about system status and alerts</p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium">New Users</p>
-                  <p className="text-sm text-slate-500">Receive notifications when new users register</p>
-                </div>
-                <Switch defaultChecked />
-              </div>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="sessions" className="space-y-4">
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Active Sessions</h3>
-              <div className="space-y-4">
-                <div className="flex items-start justify-between p-4 border rounded-lg">
-                  <div>
-                    <p className="font-medium">Current Session</p>
-                    <p className="text-sm text-slate-500">Windows 11 • Chrome • 192.168.1.105</p>
-                    <p className="text-xs text-slate-400 mt-1">Started: April 29, 2023 at 14:32</p>
+            <TabsContent value="account">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Account Information</CardTitle>
+                  <CardDescription>Update your account details</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="firstName">First Name</Label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                        <Input id="firstName" placeholder="First Name" defaultValue="Admin" className="pl-9" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName">Last Name</Label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                        <Input id="lastName" placeholder="Last Name" defaultValue="User" className="pl-9" />
+                      </div>
+                    </div>
                   </div>
-                  <Badge className="bg-green-500">Active</Badge>
-                </div>
-                <div className="flex items-start justify-between p-4 border rounded-lg">
-                  <div>
-                    <p className="font-medium">Mobile Session</p>
-                    <p className="text-sm text-slate-500">iOS 16 • Safari • 192.168.1.110</p>
-                    <p className="text-xs text-slate-400 mt-1">Started: April 28, 2023 at 09:15</p>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="Email Address"
+                        defaultValue="admin@example.com"
+                        className="pl-9"
+                      />
+                    </div>
                   </div>
-                  <Button variant="outline" size="sm">
-                    Revoke
-                  </Button>
-                </div>
-                <div className="flex items-start justify-between p-4 border rounded-lg">
-                  <div>
-                    <p className="font-medium">Tablet Session</p>
-                    <p className="text-sm text-slate-500">iPadOS 16 • Safari • 192.168.1.115</p>
-                    <p className="text-xs text-slate-400 mt-1">Started: April 27, 2023 at 16:42</p>
+                  <div className="space-y-2">
+                    <Label htmlFor="bio">Bio</Label>
+                    <textarea
+                      id="bio"
+                      placeholder="Tell us about yourself"
+                      defaultValue="System administrator for the Computer Resale Calculator application."
+                      className="w-full min-h-[100px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    />
                   </div>
-                  <Button variant="outline" size="sm">
-                    Revoke
-                  </Button>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full">
-                Revoke All Other Sessions
-              </Button>
-            </div>
+                </CardContent>
+                <CardFooter className="flex justify-end space-x-2">
+                  <Button variant="outline">Cancel</Button>
+                  <Button className="bg-indigo-600 hover:bg-indigo-700">Save Changes</Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
 
-            <div className="space-y-4 mt-6">
-              <h3 className="text-lg font-medium">Session Settings</h3>
-              <div className="grid gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="sessionTimeout">Session Timeout</Label>
-                  <Select defaultValue="60">
-                    <SelectTrigger id="sessionTimeout">
-                      <SelectValue placeholder="Select timeout" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="15">15 minutes</SelectItem>
-                      <SelectItem value="30">30 minutes</SelectItem>
-                      <SelectItem value="60">1 hour</SelectItem>
-                      <SelectItem value="120">2 hours</SelectItem>
-                      <SelectItem value="240">4 hours</SelectItem>
-                      <SelectItem value="480">8 hours</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Switch id="rememberSessions" defaultChecked />
-                  <Label htmlFor="rememberSessions">Remember sessions for 30 days</Label>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-      <CardFooter className="flex justify-end space-x-2 border-t pt-6">
-        <Button variant="outline">Cancel</Button>
-        <Button className="bg-indigo-600 hover:bg-indigo-700">
-          <Save className="h-4 w-4 mr-2" /> Save Changes
-        </Button>
-      </CardFooter>
-    </Card>
+            <TabsContent value="security">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Security Settings</CardTitle>
+                  <CardDescription>Manage your password and security preferences</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="currentPassword">Current Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                      <Input
+                        id="currentPassword"
+                        type="password"
+                        placeholder="Enter current password"
+                        className="pl-9"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="newPassword">New Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                        <Input id="newPassword" type="password" placeholder="Enter new password" className="pl-9" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="confirmPassword">Confirm Password</Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                        <Input
+                          id="confirmPassword"
+                          type="password"
+                          placeholder="Confirm new password"
+                          className="pl-9"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pt-4 space-y-4">
+                    <h3 className="text-sm font-medium">Two-Factor Authentication</h3>
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <p className="text-sm font-medium">Enable Two-Factor Authentication</p>
+                        <p className="text-xs text-slate-500">Add an extra layer of security to your account</p>
+                      </div>
+                      <Switch />
+                    </div>
+                  </div>
+                  <div className="pt-2 space-y-4">
+                    <h3 className="text-sm font-medium">Session Management</h3>
+                    <div className="flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <p className="text-sm font-medium">Auto Logout After Inactivity</p>
+                        <p className="text-xs text-slate-500">Automatically log out after a period of inactivity</p>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-end space-x-2">
+                  <Button variant="outline">Cancel</Button>
+                  <Button className="bg-indigo-600 hover:bg-indigo-700">Save Changes</Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="notifications">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Notification Preferences</CardTitle>
+                  <CardDescription>Manage how you receive notifications</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-4">
+                    <h3 className="text-sm font-medium">Email Notifications</h3>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <p className="text-sm">System Alerts</p>
+                          <p className="text-xs text-slate-500">Receive notifications about system issues</p>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <p className="text-sm">User Activity</p>
+                          <p className="text-xs text-slate-500">Receive notifications about user registrations</p>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <p className="text-sm">Security Alerts</p>
+                          <p className="text-xs text-slate-500">Receive notifications about security events</p>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pt-4 space-y-4">
+                    <h3 className="text-sm font-medium">In-App Notifications</h3>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <p className="text-sm">Dashboard Updates</p>
+                          <p className="text-xs text-slate-500">Show notifications for dashboard updates</p>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <p className="text-sm">New Features</p>
+                          <p className="text-xs text-slate-500">Show notifications about new features</p>
+                        </div>
+                        <Switch />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-end space-x-2">
+                  <Button variant="outline">Cancel</Button>
+                  <Button className="bg-indigo-600 hover:bg-indigo-700">Save Changes</Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="api">
+              <Card>
+                <CardHeader>
+                  <CardTitle>API Keys</CardTitle>
+                  <CardDescription>Manage your API keys for external integrations</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="apiKey">Current API Key</Label>
+                    <div className="flex">
+                      <Input
+                        id="apiKey"
+                        type="password"
+                        value="api_key_12345678abcdefgh"
+                        readOnly
+                        className="rounded-r-none"
+                      />
+                      <Button variant="outline" className="rounded-l-none">
+                        Copy
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="pt-4 space-y-4">
+                    <h3 className="text-sm font-medium">API Access</h3>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <p className="text-sm">Enable API Access</p>
+                          <p className="text-xs text-slate-500">Allow external applications to access the API</p>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <p className="text-sm">Rate Limiting</p>
+                          <p className="text-xs text-slate-500">Limit API requests to prevent abuse</p>
+                        </div>
+                        <Switch defaultChecked />
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <Button variant="outline" className="text-red-600 hover:text-red-700 hover:bg-red-50">
+                    Revoke API Key
+                  </Button>
+                  <Button className="bg-indigo-600 hover:bg-indigo-700">Generate New Key</Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </div>
+    </div>
   )
 }

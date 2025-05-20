@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
   // Check if the path is for the admin area (excluding login)
-  const isAdminPath = path.startsWith("/admin") && !path.startsWith("/admin/login")
+  const isAdminPath = path.startsWith("/admin") && path !== "/admin/login"
 
   // Check if the user is authenticated
   const isAuthenticated = request.cookies.has("admin_session")

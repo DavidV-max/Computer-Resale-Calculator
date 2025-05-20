@@ -4,7 +4,6 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -637,52 +636,63 @@ export default function ResaleCalculator() {
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6">
-            <Tabs value={activeTab} onValueChange={handleTypeChange as any} className="mb-6">
-              <TabsList className="grid w-full grid-cols-7 bg-indigo-100">
-                <TabsTrigger
-                  value="laptop"
-                  className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
-                >
-                  <Laptop className="h-4 w-4 mr-2" /> Laptop
-                </TabsTrigger>
-                <TabsTrigger
-                  value="desktop"
-                  className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
-                >
-                  <Monitor className="h-4 w-4 mr-2" /> Desktop
-                </TabsTrigger>
-                <TabsTrigger
-                  value="server"
-                  className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
-                >
-                  <Server className="h-4 w-4 mr-2" /> Server
-                </TabsTrigger>
-                <TabsTrigger
-                  value="workstation"
-                  className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
-                >
-                  <Workflow className="h-4 w-4 mr-2" /> Workstation
-                </TabsTrigger>
-                <TabsTrigger
-                  value="network"
-                  className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
-                >
-                  <Network className="h-4 w-4 mr-2" /> Network
-                </TabsTrigger>
-                <TabsTrigger
-                  value="printer"
-                  className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
-                >
-                  <Printer className="h-4 w-4 mr-2" /> Printer
-                </TabsTrigger>
-                <TabsTrigger
-                  value="monitor"
-                  className="data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
-                >
-                  <ScreenShare className="h-4 w-4 mr-2" /> Monitor
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+            <div className="mb-6">
+              <Label htmlFor="deviceType" className="text-indigo-700 mb-2 block">
+                Device Type
+              </Label>
+              <Select value={activeTab} onValueChange={handleTypeChange as any}>
+                <SelectTrigger id="deviceType" className="border-indigo-200 focus:ring-indigo-500">
+                  <SelectValue placeholder="Select device type">
+                    {getDeviceIcon(activeTab as DeviceType)}
+                    <span className="ml-2">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</span>
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="laptop">
+                    <div className="flex items-center">
+                      <Laptop className="h-4 w-4 mr-2" />
+                      <span>Laptop</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="desktop">
+                    <div className="flex items-center">
+                      <Monitor className="h-4 w-4 mr-2" />
+                      <span>Desktop</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="server">
+                    <div className="flex items-center">
+                      <Server className="h-4 w-4 mr-2" />
+                      <span>Server</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="workstation">
+                    <div className="flex items-center">
+                      <Workflow className="h-4 w-4 mr-2" />
+                      <span>Workstation</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="network">
+                    <div className="flex items-center">
+                      <Network className="h-4 w-4 mr-2" />
+                      <span>Network</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="printer">
+                    <div className="flex items-center">
+                      <Printer className="h-4 w-4 mr-2" />
+                      <span>Printer</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="monitor">
+                    <div className="flex items-center">
+                      <ScreenShare className="h-4 w-4 mr-2" />
+                      <span>Monitor</span>
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
             <div className="grid gap-6">
               <div className="grid grid-cols-2 gap-4">

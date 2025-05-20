@@ -3,12 +3,17 @@
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Bell, Search, LogOut } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { logoutAdmin } from "@/lib/auth"
 
-interface AdminHeaderProps {
-  onLogout: () => void
-}
+export default function AdminHeader() {
+  const router = useRouter()
 
-export default function AdminHeader({ onLogout }: AdminHeaderProps) {
+  const handleLogout = async () => {
+    await logoutAdmin()
+    router.push("/admin/login")
+  }
+
   return (
     <header className="bg-white border-b border-gray-200 py-3 px-4 flex items-center justify-between">
       <div className="relative w-64">
@@ -37,7 +42,7 @@ export default function AdminHeader({ onLogout }: AdminHeaderProps) {
           </div>
         </div>
 
-        <Button variant="ghost" size="icon" onClick={onLogout}>
+        <Button variant="ghost" size="icon" onClick={handleLogout}>
           <LogOut className="h-5 w-5" />
           <span className="sr-only">Sign out</span>
         </Button>

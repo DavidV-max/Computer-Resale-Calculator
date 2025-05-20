@@ -13,14 +13,22 @@ import {
   HelpCircle,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useRouter } from "next/navigation"
+import { logoutAdmin } from "@/lib/auth"
 
 interface AdminSidebarProps {
   activeTab: string
   setActiveTab: (tab: string) => void
-  onLogout: () => void
 }
 
-export default function AdminSidebar({ activeTab, setActiveTab, onLogout }: AdminSidebarProps) {
+export default function AdminSidebar({ activeTab, setActiveTab }: AdminSidebarProps) {
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    await logoutAdmin()
+    router.push("/admin/login")
+  }
+
   const menuItems = [
     { id: "overview", label: "Dashboard", icon: Home },
     { id: "analytics", label: "Analytics", icon: BarChart },
@@ -83,7 +91,7 @@ export default function AdminSidebar({ activeTab, setActiveTab, onLogout }: Admi
 
       <div className="p-4 border-t">
         <button
-          onClick={onLogout}
+          onClick={handleLogout}
           className="flex items-center w-full px-3 py-2 text-sm text-red-600 rounded-md hover:bg-red-50 transition-colors"
         >
           <LogOut className="h-4 w-4 mr-3" />

@@ -1,14 +1,11 @@
+import type { Metadata } from "next"
 import AdminDashboard from "@/components/admin/dashboard"
-import { checkAdminSession } from "@/lib/auth"
-import { redirect } from "next/navigation"
 
-export default async function AdminDashboardPage() {
-  // Double-check authentication on the server
-  const isAuthenticated = await checkAdminSession()
+export const metadata: Metadata = {
+  title: "Admin Dashboard | Computer Resale Calculator",
+  description: "Admin dashboard for the Computer Resale Calculator application",
+}
 
-  if (!isAuthenticated) {
-    redirect("/admin/login")
-  }
-
+export default function DashboardPage() {
   return <AdminDashboard />
 }

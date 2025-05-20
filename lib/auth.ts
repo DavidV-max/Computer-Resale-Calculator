@@ -9,7 +9,10 @@ const ADMIN_CREDENTIALS = {
   password: "admin123",
 }
 
-export async function authenticateAdmin(username: string, password: string): Promise<boolean> {
+export async function authenticateAdmin(formData: FormData): Promise<{ success: boolean; message: string }> {
+  const username = formData.get("username") as string
+  const password = formData.get("password") as string
+
   // Simple authentication check
   const isValid = username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password
 
@@ -22,9 +25,17 @@ export async function authenticateAdmin(username: string, password: string): Pro
       maxAge: 60 * 60 * 24, // 1 day
       path: "/",
     })
+
+    return {
+      success: true,
+      message: "Authentication successful",
+    }
   }
 
-  return isValid
+  return {
+    success: false,
+    message: "Invalid username or password",
+  }
 }
 
 export async function checkAdminSession(): Promise<boolean> {
