@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Bell, Search, LogOut } from "lucide-react"
+import { Bell, Search, LogOut, Calculator } from "lucide-react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 export default function AdminHeader() {
   const router = useRouter()
@@ -17,6 +18,13 @@ export default function AdminHeader() {
 
   return (
     <header className="bg-white border-b border-gray-200 py-3 px-4 flex items-center justify-between">
+      {/* Added calculator icon in header */}
+      <Link href="/admin/dashboard" className="flex items-center mr-4">
+        <div className="bg-indigo-100 p-2 rounded-full mr-2">
+          <Calculator className="h-5 w-5 text-indigo-600" />
+        </div>
+      </Link>
+
       <div className="relative w-64">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
         <input

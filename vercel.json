@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "buildCommand": "next build",
+  "cleanUrls": true,
+  "public": true,
+  "github": {
+    "silent": false
+  }
+}

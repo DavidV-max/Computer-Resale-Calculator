@@ -9,10 +9,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { AlertCircle, Lock, User } from "lucide-react"
+import { AlertCircle, Lock, Mail } from "lucide-react"
+import { signIn } from "@/lib/auth"
 
 export default function AdminLogin() {
   const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -21,20 +24,21 @@ export default function AdminLogin() {
     setIsLoading(true)
     setError(null)
 
-    // Get form data
-    const formData = new FormData(e.currentTarget)
-    const username = formData.get("username") as string
-    const password = formData.get("password") as string
+    try {
+      console.log("Attempting login with:", email)
+      const result = await signIn(email, password)
+      console.log("Login result:", result)
 
-    // Simple demo authentication
-    if (username === "admin" && password === "admin123") {
-      // Set a cookie to simulate authentication
-      document.cookie = "admin_session=authenticated; path=/; max-age=86400"
-
-      // Redirect to dashboard
-      router.push("/admin/dashboard")
-    } else {
-      setError("Invalid username or password")
+      if (result.success && result.user) {
+        // For demo purposes, allow any successful login to access admin
+        router.push("/admin/dashboard")
+      } else {
+        setError(result.error || "Invalid email or password")
+      }
+    } catch (error: any) {
+      console.error("Login error:", error)
+      setError("An unexpected error occurred. Please try again.")
+    } finally {
       setIsLoading(false)
     }
   }
@@ -55,17 +59,18 @@ export default function AdminLogin() {
           )}
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="username" className="text-blue-700">
-                Username
+              <Label htmlFor="email" className="text-blue-700">
+                Email
               </Label>
               <div className="relative">
-                <User className="absolute left-3 top-3 h-4 w-4 text-blue-500" />
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-blue-500" />
                 <Input
-                  id="username"
-                  name="username"
-                  type="text"
-                  placeholder="Enter your username"
+                  id="email"
+                  type="text" // Changed from email to text to allow "admin" login
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="pl-9 border-blue-200 focus:ring-blue-500"
+                  placeholder="Enter your email or username"
                   required
                 />
               </div>
@@ -78,10 +83,11 @@ export default function AdminLogin() {
                 <Lock className="absolute left-3 top-3 h-4 w-4 text-blue-500" />
                 <Input
                   id="password"
-                  name="password"
                   type="password"
-                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="pl-9 border-blue-200 focus:ring-blue-500"
+                  placeholder="Enter your password"
                   required
                 />
               </div>
@@ -102,6 +108,9 @@ export default function AdminLogin() {
           <div className="text-xs text-center text-slate-500 bg-blue-100 p-2 rounded-md">
             <p className="font-medium">Demo Credentials</p>
             <p>Username: admin</p>
+            <p>Password: admin123</p>
+            <p className="mt-1">- OR -</p>
+            <p>Email: admin@example.com</p>
             <p>Password: admin123</p>
           </div>
         </CardFooter>

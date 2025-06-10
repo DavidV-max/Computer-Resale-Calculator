@@ -164,6 +164,10 @@ export default function ResaleCalculator() {
           resolution: "1080p",
           panelType: "IPS",
           refreshRate: 60,
+          hdrSupport: false,
+          curvedScreen: false,
+          adjustableStand: true,
+          builtInSpeakers: false,
         }
         break
       default: // laptop or desktop
@@ -490,10 +494,15 @@ export default function ResaleCalculator() {
                   <SelectContent>
                     <SelectItem value="720p">HD (1280x720)</SelectItem>
                     <SelectItem value="1080p">Full HD (1920x1080)</SelectItem>
+                    <SelectItem value="1200p">WUXGA (1920x1200)</SelectItem>
                     <SelectItem value="1440p">QHD (2560x1440)</SelectItem>
-                    <SelectItem value="4k">4K (3840x2160)</SelectItem>
+                    <SelectItem value="1600p">WQXGA (2560x1600)</SelectItem>
+                    <SelectItem value="4k">4K UHD (3840x2160)</SelectItem>
                     <SelectItem value="5k">5K (5120x2880)</SelectItem>
-                    <SelectItem value="ultrawide">Ultrawide</SelectItem>
+                    <SelectItem value="8k">8K (7680x4320)</SelectItem>
+                    <SelectItem value="ultrawide-fhd">Ultrawide FHD (2560x1080)</SelectItem>
+                    <SelectItem value="ultrawide-qhd">Ultrawide QHD (3440x1440)</SelectItem>
+                    <SelectItem value="super-ultrawide">Super Ultrawide (5120x1440)</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -511,11 +520,14 @@ export default function ResaleCalculator() {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="TN">TN</SelectItem>
-                    <SelectItem value="IPS">IPS</SelectItem>
-                    <SelectItem value="VA">VA</SelectItem>
-                    <SelectItem value="OLED">OLED</SelectItem>
+                    <SelectItem value="TN">TN (Twisted Nematic)</SelectItem>
+                    <SelectItem value="IPS">IPS (In-Plane Switching)</SelectItem>
+                    <SelectItem value="VA">VA (Vertical Alignment)</SelectItem>
+                    <SelectItem value="OLED">OLED (Organic LED)</SelectItem>
                     <SelectItem value="Mini-LED">Mini-LED</SelectItem>
+                    <SelectItem value="Nano-IPS">Nano IPS</SelectItem>
+                    <SelectItem value="Quantum-Dot">Quantum Dot</SelectItem>
+                    <SelectItem value="QLED">QLED</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -531,14 +543,76 @@ export default function ResaleCalculator() {
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="60">60 Hz</SelectItem>
+                    <SelectItem value="60">60 Hz (Standard)</SelectItem>
                     <SelectItem value="75">75 Hz</SelectItem>
+                    <SelectItem value="100">100 Hz</SelectItem>
                     <SelectItem value="120">120 Hz</SelectItem>
-                    <SelectItem value="144">144 Hz</SelectItem>
+                    <SelectItem value="144">144 Hz (Gaming)</SelectItem>
                     <SelectItem value="165">165 Hz</SelectItem>
-                    <SelectItem value="240">240 Hz</SelectItem>
+                    <SelectItem value="180">180 Hz</SelectItem>
+                    <SelectItem value="240">240 Hz (Competitive)</SelectItem>
+                    <SelectItem value="280">280 Hz</SelectItem>
+                    <SelectItem value="360">360 Hz (Professional)</SelectItem>
+                    <SelectItem value="500">500 Hz (Extreme)</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+            </div>
+            <div className="grid gap-4 mt-4">
+              <Label className="text-indigo-700">Additional Features</Label>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="hdrSupport"
+                    name="hdrSupport"
+                    className="h-4 w-4 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-500"
+                    checked={(specs as any).hdrSupport || false}
+                    onChange={handleInputChange}
+                  />
+                  <Label htmlFor="hdrSupport" className="flex items-center gap-1 text-indigo-700">
+                    HDR Support
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="curvedScreen"
+                    name="curvedScreen"
+                    className="h-4 w-4 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-500"
+                    checked={(specs as any).curvedScreen || false}
+                    onChange={handleInputChange}
+                  />
+                  <Label htmlFor="curvedScreen" className="flex items-center gap-1 text-indigo-700">
+                    Curved Screen
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="adjustableStand"
+                    name="adjustableStand"
+                    className="h-4 w-4 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-500"
+                    checked={(specs as any).adjustableStand || false}
+                    onChange={handleInputChange}
+                  />
+                  <Label htmlFor="adjustableStand" className="flex items-center gap-1 text-indigo-700">
+                    Adjustable Stand
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="builtInSpeakers"
+                    name="builtInSpeakers"
+                    className="h-4 w-4 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-500"
+                    checked={(specs as any).builtInSpeakers || false}
+                    onChange={handleInputChange}
+                  />
+                  <Label htmlFor="builtInSpeakers" className="flex items-center gap-1 text-indigo-700">
+                    Built-in Speakers
+                  </Label>
+                </div>
               </div>
             </div>
           </>

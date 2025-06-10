@@ -20,6 +20,7 @@ import {
   AlertTriangle,
   CheckCircle,
   Activity,
+  Calculator,
 } from "lucide-react"
 import AdminHeader from "./header"
 import AdminSidebar from "./sidebar"
@@ -43,6 +44,25 @@ export default function AdminDashboard() {
         <main className="flex-1 overflow-y-auto p-4">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
             <TabsContent value="overview" className="space-y-4">
+              {/* Added Calculator Feature Card */}
+              <Card className="border-2 border-indigo-500">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-indigo-50">
+                  <CardTitle className="text-lg font-bold text-indigo-700">Calculator Feature</CardTitle>
+                  <Calculator className="h-8 w-8 text-indigo-600 animate-pulse" />
+                </CardHeader>
+                <CardContent className="pt-4">
+                  <div className="flex items-center gap-4">
+                    <div className="bg-indigo-100 p-3 rounded-full">
+                      <Calculator className="h-10 w-10 text-indigo-600" />
+                    </div>
+                    <div>
+                      <div className="text-xl font-bold">Computer Resale Calculator</div>
+                      <p className="text-sm text-muted-foreground">Admin Panel Update Test</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

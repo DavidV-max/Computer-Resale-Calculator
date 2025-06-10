@@ -1,88 +1,58 @@
 "use client"
+
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { BarChart, Users, Package, Settings, LogOut, Home, ChevronRight, Bell, HelpCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { LayoutDashboard, Users, Settings, Package, BarChart3, FileText, User, Calculator } from "lucide-react"
 
-export default function AdminSidebar() {
-  const pathname = usePathname()
+interface AdminSidebarProps {
+  activeTab: string
+  setActiveTab: (tab: string) => void
+}
 
+export default function AdminSidebar({ activeTab, setActiveTab }: AdminSidebarProps) {
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: Home, href: "/admin/dashboard" },
-    { id: "analytics", label: "Analytics", icon: BarChart, href: "/admin/dashboard/analytics" },
-    { id: "devices", label: "Device Management", icon: Package, href: "/admin/dashboard/devices" },
-    { id: "users", label: "User Management", icon: Users, href: "/admin/dashboard/users" },
-    { id: "settings", label: "System Settings", icon: Settings, href: "/admin/dashboard/settings" },
+    { id: "overview", label: "Overview", icon: LayoutDashboard, href: "/admin/dashboard" },
+    { id: "analytics", label: "Analytics", icon: BarChart3, href: "/admin/dashboard/analytics" },
+    { id: "devices", label: "Devices", icon: Package, href: "/admin/dashboard/devices" },
+    { id: "users", label: "Users", icon: Users, href: "/admin/dashboard/users" },
+    { id: "settings", label: "Settings", icon: Settings, href: "/admin/dashboard/settings" },
+    { id: "logs", label: "System Logs", icon: FileText, href: "#" },
+    { id: "profile", label: "Profile", icon: User, href: "#" },
   ]
 
-  const handleLogout = () => {
-    // Clear the authentication cookie
-    document.cookie = "admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
-    // Redirect to login page
-    window.location.href = "/admin/login"
-  }
-
   return (
-    <div className="w-64 bg-white border-r border-gray-200 flex flex-col h-full">
-      <div className="p-4 border-b">
-        <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-sky-600 bg-clip-text text-transparent">
-          Admin Portal
-        </h2>
-        <p className="text-xs text-slate-500">Computer Resale Calculator</p>
-      </div>
-
-      <nav className="flex-1 overflow-y-auto p-2">
-        <ul className="space-y-1">
-          {menuItems.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`)
-
-            return (
-              <li key={item.id}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    "flex items-center w-full px-3 py-2 text-sm rounded-md transition-colors",
-                    isActive ? "bg-blue-100 text-blue-700 font-medium" : "text-slate-600 hover:bg-gray-100",
-                  )}
-                >
-                  <item.icon className="h-4 w-4 mr-3" />
-                  {item.label}
-                  {isActive && <ChevronRight className="h-4 w-4 ml-auto" />}
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Support</h3>
-          <ul className="mt-2 space-y-1">
-            <li>
-              <button className="flex items-center w-full px-3 py-2 text-sm rounded-md text-slate-600 hover:bg-gray-100">
-                <HelpCircle className="h-4 w-4 mr-3" />
-                Help Center
-              </button>
-            </li>
-            <li>
-              <button className="flex items-center w-full px-3 py-2 text-sm rounded-md text-slate-600 hover:bg-gray-100">
-                <Bell className="h-4 w-4 mr-3" />
-                Notifications
-                <span className="ml-auto bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">3</span>
-              </button>
-            </li>
-          </ul>
+    <div className="w-64 bg-white border-r border-gray-200 h-full overflow-y-auto">
+      {/* Added calculator icon at the top of sidebar */}
+      <div className="p-4 border-b border-gray-200">
+        <div className="flex items-center gap-3">
+          <div className="bg-indigo-100 p-2 rounded-full">
+            <Calculator className="h-6 w-6 text-indigo-600" />
+          </div>
+          <div>
+            <h2 className="font-bold text-lg">Calculator</h2>
+            <p className="text-xs text-gray-500">Admin Panel</p>
+          </div>
         </div>
-      </nav>
-
-      <div className="p-4 border-t">
-        <button
-          onClick={handleLogout}
-          className="flex items-center w-full px-3 py-2 text-sm text-red-600 rounded-md hover:bg-red-50 transition-colors"
-        >
-          <LogOut className="h-4 w-4 mr-3" />
-          Sign Out
-        </button>
       </div>
+
+      <nav className="p-4 space-y-1">
+        {menuItems.map((item) => (
+          <Link
+            key={item.id}
+            href={item.href}
+            onClick={() => setActiveTab(item.id)}
+            className={cn(
+              "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
+              activeTab === item.id
+                ? "bg-indigo-50 text-indigo-600 font-medium"
+                : "text-gray-600 hover:text-indigo-600 hover:bg-gray-50",
+            )}
+          >
+            <item.icon className="h-5 w-5" />
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </div>
   )
 }
